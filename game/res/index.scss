@@ -54,19 +54,47 @@ body {
       	font-size: 25px;
       	z-index: 10;
       }
-    }
 
-    .land {
-    	position: absolute;
-    	bottom: 0;
-    	left: 0;
-    	width: 288px;
-    	height: 112px;
-    	background: url(./elements.png) no-repeat -292px 0;
+			.pipe {
+				position: absolute;
+				top: 0;
+				right: -52px;
+				width: 52px;
+				height: 100%;
 
-      &.sliding {
-      	animation: sliding 0.2s linear infinite;
-      }
+				.pipe-upper {
+					position: absolute;
+					top: -270px;
+					right: 0;
+					width: 52px;
+					height: 270px;
+					background: url(./elements.png) no-repeat -604px 0;
+					will-change: transform;
+				}
+
+				.pipe-below {
+					position: absolute;
+					bottom: -130px;
+					right: 0;
+					width: 52px;
+					height: 242px;
+					background: url(./elements.png) no-repeat -660px 0;
+					will-change: transform;
+				}
+			}
+
+			.land {
+	    	position: absolute;
+	    	bottom: 0;
+	    	left: 0;
+	    	width: 288px;
+	    	height: 112px;
+	    	background: url(./elements.png) no-repeat -292px 0;
+
+				&.sliding {
+					animation: sliding 0.2s linear infinite;
+				}
+	    }
     }
   }
 }

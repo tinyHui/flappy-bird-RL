@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import classnames from 'classnames'
 import Bird from '../containers/bird.jsx'
+import PipePair from '../containers/pipePair.jsx'
 
 class App extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { game } = this.state;
+    const { game, triggerFly } = this.state;
     const { isPlaying, score } = this.state.game;
 
     let landClasses = classnames({
@@ -22,10 +23,11 @@ class App extends React.Component {
     });
 
     return <div className='app'>
-        <div className='scene'>
+        <div className='scene' onMouseDown={triggerFly} onTouchStart={triggerFly}>
           <Bird />
+          <PipePair />
+          <div className={landClasses}></div>
         </div>
-        <div className={landClasses}></div>
       </div>
   }
 }
