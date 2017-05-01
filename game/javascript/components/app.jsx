@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import classnames from 'classnames'
 import Bird from '../containers/bird.jsx'
-import PipePair from '../containers/pipePair.jsx'
+import PipePairs from '../containers/pipePairs.jsx'
 
 class App extends React.Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class App extends React.Component {
     return <div className='app'>
         <div className='scene' onMouseDown={triggerFly} onTouchStart={triggerFly}>
           <Bird />
-          <PipePair />
+          <PipePairs />
           <div className={landClasses}></div>
         </div>
       </div>

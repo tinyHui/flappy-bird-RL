@@ -1,11 +1,10 @@
 import { combineReducers } from 'redux'
-import initState from '../initialState'
 import game from './game'
 import bird from './bird'
-import pipePair from './pipePair'
+import pipePairs from './pipePairs'
 
 export default combineReducers({
   game,
   bird,
-  pipePair
+  pipePairs
 })
