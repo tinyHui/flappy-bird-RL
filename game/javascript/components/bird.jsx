@@ -1,19 +1,14 @@
 import React from 'react'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
 class Bird extends React.Component {
   constructor(props) {
     super(props);
-    this.state = props;
-  }
-
-  componentDidMount() {
-    this.state.bird.timestamp = Date.now();
   }
 
   render() {
-    const { bird, _ } = this.state;
+    const { bird } = this.props;
 
     let style = {
       transform: `translate(0, ${-bird.currentHeight}px) rotate(${bird.currentRotate || 0}deg)`

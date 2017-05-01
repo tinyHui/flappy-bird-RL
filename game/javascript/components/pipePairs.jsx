@@ -21,12 +21,12 @@ class PipePairs extends React.Component {
 }
 
 PipePairs.propTypes = {
-  pipePairs: PropTypes.shape({
+  pipePairs: PropTypes.arrayOf(PropTypes.shape({
     timestamp: PropTypes.number.isRequired,
     moveOffset: PropTypes.number.isRequired,
     top: PropTypes.number.isRequired,
     bottom: PropTypes.number.isRequired
-  })
+  }))
 }
 
 export default PipePairs;

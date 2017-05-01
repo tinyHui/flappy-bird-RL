@@ -1,21 +1,20 @@
 import React from 'react'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import Bird from '../containers/bird.jsx'
-import PipePairs from '../containers/pipePairs.jsx'
+import Bird from '../containers/bird'
+import PipePairs from '../containers/pipePairs'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = props;
     document.onkeypress = (event) => {
       this.state.triggerFly();
     }
   }
 
   render() {
-    const { game, triggerFly } = this.state;
-    const { isPlaying, score } = this.state.game;
+    const { game, triggerFly } = this.props;
+    const { isPlaying, score } = this.props.game;
 
     let landClasses = classnames({
       land: true,

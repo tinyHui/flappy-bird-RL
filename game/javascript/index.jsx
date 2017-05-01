@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import App from './containers/app.jsx'
+import App from './containers/app'
 import game from './reducers'
 import { playing } from './actions'
 

@@ -1,7 +1,9 @@
 import initState from '../initialState'
 import { FLY_UP, PLAYING } from '../actions'
 
-let bird = initState.bird;
+let bird = Object.assign(initState.bird, {
+  timestamp: Date.now()
+});
 const world = initState.world;
 
 export default (state = { bird }, action) => {
