@@ -11,7 +11,8 @@ class Bird extends React.Component {
     const { bird } = this.props;
 
     let style = {
-      transform: `translate(0, ${-bird.currentHeight}px) rotate(${bird.currentRotate || 0}deg)`
+      transform: `translate(0, ${-bird.currentHeight}px) rotate(${bird.currentRotate || 0}deg)`,
+      left: `${bird.x}px`
     };
     let classes = classnames({
       'bird': true,

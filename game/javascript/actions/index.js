@@ -1,5 +1,6 @@
 export const FLY_UP = 'FLY_UP';
 export const PLAYING = 'PLAYING';
+export const SCORE_UP = 'SCORE_UP';
 
 export function flyUp() {
   return {
@@ -10,5 +11,11 @@ export function flyUp() {
 export function playing() {
   return {
     type: PLAYING
+  }
+}
+
+export function scoreUp() {
+  return {
+    type: SCORE_UP
   }
 }

@@ -3,17 +3,18 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import Bird from '../containers/bird'
 import PipePairs from '../containers/pipePairs'
+import Score from '../containers/score'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     document.onkeypress = (event) => {
-      this.state.triggerFly();
+      props.triggerFly();
     }
   }
 
   render() {
-    const { game, triggerFly } = this.props;
+    const { game, triggerFly, scoreUp } = this.props;
     const { isPlaying, score } = this.props.game;
 
     let landClasses = classnames({
@@ -22,6 +23,7 @@ class App extends React.Component {
     });
 
     return <div className='app'>
+        <Score />
         <div className='scene' onMouseDown={triggerFly} onTouchStart={triggerFly}>
           <Bird />
           <PipePairs />

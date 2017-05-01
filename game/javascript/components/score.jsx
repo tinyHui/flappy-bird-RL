@@ -1,9 +1,21 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-export default function Score(props) {
-  const {score} = props;
-  
-  return <div className='score'>
-    {score}
-  </div>
+class Score extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const { score, birdReachPipe, scoreUp } = this.props;
+    if (birdReachPipe) {
+      scoreUp();
+    }
+
+    return <div className='score'>
+      { score }
+    </div>
+  }
 }
+
+export default Score;

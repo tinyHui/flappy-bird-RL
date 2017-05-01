@@ -1,5 +1,5 @@
 import initState from '../initialState'
-import { PLAYING, FLY_UP } from '../actions'
+import { PLAYING, FLY_UP, SCORE_UP } from '../actions'
 
 const heightRange = initState.world.skyRange.max,
       widthRange = initState.world.xRange.max,
@@ -21,6 +21,7 @@ export default (state = { pipePairs }, action) => {
       let newPipePairs = slidingLeft(state);
       return getPipeInScene(newPipePairs);
 
+    case SCORE_UP:
     case FLY_UP:
       return state;
 

@@ -5,6 +5,7 @@ export default {
   },
   bird: {
     isFlying: true,
+    x: 45,
     startHeight: 188,
     startRotate: 0,
     currentHeight: 188,
