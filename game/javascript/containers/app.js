@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import App from '../components/app.jsx'
-import { flyUp, playing, startGame } from '../actions'
+import { flyUp, startGame } from '../actions'
 
 const mapStateToProps = (state) => {
   return {
@@ -19,13 +19,6 @@ const mapDispatchToProps = (dispatch) => {
     }
   }
 }
-
-// function runningGame() {
-//   store.dispatch(playing())
-//   requestAnimationFrame(runningGame);
-// }
-//
-// runningGame();
 
 export default connect(
   mapStateToProps,

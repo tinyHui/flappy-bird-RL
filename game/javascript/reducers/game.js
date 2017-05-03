@@ -11,8 +11,8 @@ export default (state = gameState, action) => {
       });
 
     case SCORE_UP:
-      return Object.assign({}, state, {
-        score: gameState.score + 1
+      return Object.assign(state, {
+        score: state.score + 1
       });
 
     default:
