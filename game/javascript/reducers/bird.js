@@ -1,14 +1,18 @@
 import initState from '../initialState'
-import { FLY_UP, PLAYING } from '../actions'
+import { START, FLY_UP, PLAYING } from '../actions'
 
 let bird = Object.assign(initState.bird, {
-  timestamp: Date.now()
+  timestamp: 0
 });
 const world = initState.world;
 
 export default (state = { bird }, action) => {
   const { currentHeight, targetHeight, currentRotate } = bird;
   switch (action.type) {
+    case START:
+      bird.timestamp = Date.now();
+      return Object.assign({}, bird);
+
     case FLY_UP:
       bird.targetRotate = bird.minRotate;
       bird.startHeight = bird.currentHeight;

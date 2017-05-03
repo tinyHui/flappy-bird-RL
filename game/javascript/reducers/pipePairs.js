@@ -1,5 +1,5 @@
 import initState from '../initialState'
-import { PLAYING, FLY_UP, SCORE_UP } from '../actions'
+import { START, PLAYING, FLY_UP, SCORE_UP } from '../actions'
 
 const heightRange = initState.world.skyRange.max,
       widthRange = initState.world.xRange.max,
@@ -10,13 +10,21 @@ const gap = initState.pipePair.gap,
       topOffsetMax = initState.pipePair.top.yRange.max,
       topOffsetMin = initState.pipePair.top.yRange.min;
 
-let pipePairs = [Object.assign({
-  timestamp: Date.now(),
-  moveOffset: initState.pipePair.moveOffset
-}, randomVerticalOffset())];
+let pipePairs = [{
+  timestamp: 0,
+  moveOffset: initState.pipePair.moveOffset,
+  top: 0,
+  bottom: 0
+}];
 
 export default (state = { pipePairs }, action) => {
   switch (action.type) {
+    case START:
+      return [Object.assign({
+                timestamp: Date.now(),
+                moveOffset: initState.pipePair.moveOffset
+              }, randomVerticalOffset())];
+
     case PLAYING:
       let newPipePairs = slidingLeft(state);
       return getPipeInScene(newPipePairs);

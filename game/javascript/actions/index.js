@@ -1,6 +1,7 @@
 export const FLY_UP = 'FLY_UP';
 export const PLAYING = 'PLAYING';
 export const SCORE_UP = 'SCORE_UP';
+export const START = 'START';
 
 export function flyUp() {
   return {
@@ -17,5 +18,11 @@ export function playing() {
 export function scoreUp() {
   return {
     type: SCORE_UP
+  }
+}
+
+export function startGame() {
+  return {
+    type: START
   }
 }

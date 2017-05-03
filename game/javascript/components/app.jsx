@@ -8,8 +8,17 @@ import Score from '../containers/score'
 class App extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
     document.onkeypress = (event) => {
-      props.triggerFly();
+      if (event.keyCode === 32) {
+        this.props.triggerFly();
+      } else if (event.keyCode === 13) {
+        if (!this.props.game.isPlaying) {
+          this.props.startGame();
+        }
+      }
     }
   }
 
@@ -25,7 +34,7 @@ class App extends React.Component {
     return <div className='app'>
         <Score />
         <div className='scene' onMouseDown={triggerFly} onTouchStart={triggerFly}>
-          <Bird />
+          <Bird isVisible={this.props.game.isPlaying}/>
           <PipePairs />
           <div className={landClasses}></div>
         </div>

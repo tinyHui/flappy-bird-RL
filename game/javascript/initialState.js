@@ -1,6 +1,6 @@
 export default {
   game: {
-    isPlaying: true,
+    isPlaying: false,
     score: 0,
   },
   bird: {

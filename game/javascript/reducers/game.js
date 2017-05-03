@@ -1,15 +1,21 @@
 import initState from '../initialState'
-import { SCORE_UP } from '../actions'
+import { START, SCORE_UP } from '../actions'
 
 let gameState = initState.game;
 
 export default (state = { gameState }, action) => {
   switch (action.type) {
+    case START:
+      return Object.assign({}, state, {
+        isPlaying: true
+      });
+
     case SCORE_UP:
-      return Object.assign(gameState, {
+      return Object.assign(state, {
         score: gameState.score + 1
       });
+
     default:
-      return gameState;
+      return state;
   }
 }
