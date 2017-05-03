@@ -32,7 +32,7 @@ class App extends React.Component {
     });
 
     return <div className='app'>
-        <Score />
+        <Score isVisible={this.props.game.isPlaying}/>
         <div className='scene' onMouseDown={triggerFly} onTouchStart={triggerFly}>
           <Bird isVisible={this.props.game.isPlaying}/>
           <PipePairs />

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 
 class Score extends React.Component {
   constructor(props) {
@@ -7,12 +8,17 @@ class Score extends React.Component {
   }
 
   render() {
-    const { score, birdReachPipe, scoreUp } = this.props;
+    const { score, birdReachPipe, isVisible, scoreUp } = this.props;
     if (birdReachPipe) {
       scoreUp();
     }
 
-    return <div className='score'>
+    let classes = classnames({
+      'hide': !isVisible,
+      'score': true
+    });
+
+    return <div className={classes}>
       { score }
     </div>
   }
