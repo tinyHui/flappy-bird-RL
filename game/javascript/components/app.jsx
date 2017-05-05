@@ -18,17 +18,19 @@ class App extends React.Component {
         if (!this.props.game.isPlaying) {
           this.props.startGame();
         }
+      } else if(event.keyCode === 96) {
+        this.props.stopGame();
       }
     }
   }
 
   render() {
     const { game, triggerFly, scoreUp } = this.props;
-    const { isPlaying, score } = this.props.game;
+    const { isPlaying, score, isEnded } = this.props.game;
 
     let landClasses = classnames({
       land: true,
-      sliding: isPlaying,
+      sliding: isPlaying && !isEnded,
     });
 
     return <div className='app'>

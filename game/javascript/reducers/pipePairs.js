@@ -1,5 +1,5 @@
 import initState from '../initialState'
-import { START, PLAYING, FLY_UP, SCORE_UP } from '../actions'
+import { START, PLAYING, FLY_UP, SCORE_UP, STOP } from '../actions'
 
 const heightRange = initState.world.skyRange.max,
       widthRange = initState.world.xRange.max,
@@ -31,6 +31,7 @@ export default (state = { pipePairs }, action) => {
 
     case SCORE_UP:
     case FLY_UP:
+    case STOP:
       return state;
 
     default:

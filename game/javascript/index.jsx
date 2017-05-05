@@ -4,7 +4,7 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import App from './containers/app'
 import game from './reducers'
-import { playing } from './actions'
+import { playing, stopGame } from './actions'
 
 const store = createStore(game);
 
@@ -17,7 +17,11 @@ ReactDOM.render(
 
 function runningGame() {
   if (store.getState().game.isPlaying) {
-    store.dispatch(playing())
+    if (store.getState().game.isEnded) {
+      store.dispatch(stopGame())
+    } else {
+      store.dispatch(playing())
+    }
   }
   requestAnimationFrame(runningGame);
 }

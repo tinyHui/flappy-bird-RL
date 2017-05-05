@@ -1,7 +1,8 @@
 export default {
   game: {
     isPlaying: false,
-    score: 0,
+    isEnded: false,
+    score: 0
   },
   bird: {
     isFlying: true,

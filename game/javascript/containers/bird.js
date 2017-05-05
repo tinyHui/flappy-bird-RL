@@ -5,7 +5,8 @@ import Bird from '../components/bird.jsx'
 const mapStateToProps = (state, ownState) => {
   return {
     bird: state.bird,
-    isVisible: ownState.isVisible
+    isVisible: ownState.isVisible,
+    gameEnded: state.game.isEnded
   }
 }
 

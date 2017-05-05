@@ -2,6 +2,7 @@ export const FLY_UP = 'FLY_UP';
 export const PLAYING = 'PLAYING';
 export const SCORE_UP = 'SCORE_UP';
 export const START = 'START';
+export const STOP = 'STOP';
 
 export function flyUp() {
   return {
@@ -24,5 +25,11 @@ export function scoreUp() {
 export function startGame() {
   return {
     type: START
+  }
+}
+
+export function stopGame() {
+  return {
+    type: STOP
   }
 }

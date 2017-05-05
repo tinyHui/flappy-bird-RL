@@ -1,5 +1,5 @@
 import initState from '../initialState'
-import { START, FLY_UP, PLAYING } from '../actions'
+import { START, FLY_UP, PLAYING, STOP } from '../actions'
 
 let bird = Object.assign(initState.bird, {
   timestamp: 0
@@ -40,6 +40,10 @@ export default (state = { bird }, action) => {
 
       return Object.assign({}, bird);
 
+    case STOP:
+      dropDown(Date.now() - bird.timestamp);
+      return Object.assign({}, bird);
+
     default:
       return bird;
   }
@@ -62,6 +66,9 @@ function climbUp(timeDelta) {
 }
 
 function dropDown(timeDelta) {
+  if (bird.currentHeight <= world.flyRange.min) {
+    return
+  }
   const heightDelta = timeDelta / world.dropDuration * (world.skyRange.max - world.skyRange.min);
   bird.currentHeight = bird.startHeight - heightDelta;
   bird.currentRotate = bird.maxRotate;
