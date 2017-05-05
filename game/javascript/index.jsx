@@ -16,7 +16,6 @@ ReactDOM.render(
 );
 
 function runningGame() {
-  console.log(store.getState().game.isPlaying);
   if (store.getState().game.isPlaying) {
     store.dispatch(playing())
   }
