@@ -8,10 +8,7 @@ class Score extends React.Component {
   }
 
   render() {
-    const { score, birdReachPipe, isVisible, scoreUp } = this.props;
-    if (birdReachPipe) {
-      scoreUp();
-    }
+    const { score, isVisible, scoreUp } = this.props;
 
     let classes = classnames({
       'hide': !isVisible,

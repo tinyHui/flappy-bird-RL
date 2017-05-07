@@ -24,6 +24,7 @@ export default {
     speed: 1,
     interval: 2800,
     gap: 68,
+    width: 52,
     top: {
       offset: 0,
       yRange: {
