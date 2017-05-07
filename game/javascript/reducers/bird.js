@@ -1,75 +1,78 @@
 import initState from '../initialState'
-import { START, FLY_UP, PLAYING, STOP } from '../actions'
+import { START, FLY_UP, PLAYING, STOP, SCORE_UP } from '../actions'
 
-let bird = Object.assign(initState.bird, {
-  timestamp: 0
-});
 const world = initState.world;
 
-export default (state = { bird }, action) => {
-  const { currentHeight, targetHeight, currentRotate } = bird;
+export default (state = { }, action) => {
+  const { currentHeight, targetHeight, currentRotate } = state;
   switch (action.type) {
     case START:
-      bird.timestamp = Date.now();
-      return Object.assign({}, bird);
+      return Object.assign({}, initState.bird, {
+        timestamp: Date.now()
+      });
 
     case FLY_UP:
-      bird.targetRotate = bird.minRotate;
-      bird.startHeight = bird.currentHeight;
-      bird.timestamp = Date.now();
-
-      if (bird.currentHeight < world.flyRange.max) {
-        bird.targetHeight = getClimbTarget();
+      if (state.currentHeight < world.flyRange.max) {
+        state.targetHeight = getClimbTarget(state);
       }
 
-      return bird;
+      return Object.assign({}, state, {
+        targetRotate: state.minRotate,
+        startHeight: state.currentHeight,
+        timestamp: Date.now()
+      });
 
     case PLAYING:
-      const timeDelta = Date.now() - bird.timestamp;
+      const timeDelta = Date.now() - state.timestamp;
 
       if (currentHeight === targetHeight) {
-        bird.startHeight = currentHeight;
-        bird.targetHeight = world.skyRange.min;
-        bird.currentRotate = bird.maxRotate;
-        bird.timestamp = Date.now();
+        state.startHeight = currentHeight;
+        state.targetHeight = world.skyRange.min;
+        state.currentRotate = state.maxRotate;
+        state.timestamp = Date.now();
       } else if (currentHeight < targetHeight) {
-        climbUp(timeDelta);
+        climbUp(state, timeDelta);
       } else {
-        dropDown(timeDelta);
+        dropDown(state, timeDelta);
       }
 
-      return Object.assign({}, bird);
+      return Object.assign({}, state);
 
     case STOP:
-      dropDown(Date.now() - bird.timestamp);
-      return Object.assign({}, bird);
+      dropDown(state, Date.now() - state.timestamp);
+      return Object.assign({}, state);
+
+    case SCORE_UP:
+      return Object.assign({}, state);
 
     default:
-      return bird;
+      return Object.assign({}, initState.bird, {
+        timestamp: Date.now()
+      });
   }
 }
 
-function getClimbTarget() {
-  if (bird.currentHeight > bird.targetHeight) {
+function getClimbTarget(state) {
+  if (state.currentHeight > state.targetHeight) {
     // still dropping
-    return bird.currentHeight + bird.climbHeight;
+    return state.currentHeight + state.climbHeight;
   } else {
-    return bird.targetHeight += bird.climbHeight;
+    return state.targetHeight += state.climbHeight;
   }
 }
 
-function climbUp(timeDelta) {
+function climbUp(state, timeDelta) {
   let ratio = timeDelta / world.climbDuration;
   if (ratio > 1)  ratio = 1;
-  bird.currentHeight = bird.startHeight + (bird.targetHeight - bird.startHeight) * ratio;
-  bird.currentRotate = bird.startRotate + (bird.targetRotate - bird.startRotate) * ratio;
+  state.currentHeight = state.startHeight + (state.targetHeight - state.startHeight) * ratio;
+  state.currentRotate = state.startRotate + (state.targetRotate - state.startRotate) * ratio;
 }
 
-function dropDown(timeDelta) {
-  if (bird.currentHeight <= world.flyRange.min) {
+function dropDown(state, timeDelta) {
+  if (state.currentHeight <= world.flyRange.min) {
     return
   }
   const heightDelta = timeDelta / world.dropDuration * (world.skyRange.max - world.skyRange.min);
-  bird.currentHeight = bird.startHeight - heightDelta;
-  bird.currentRotate = bird.maxRotate;
+  state.currentHeight = state.startHeight - heightDelta;
+  state.currentRotate = state.maxRotate;
 }

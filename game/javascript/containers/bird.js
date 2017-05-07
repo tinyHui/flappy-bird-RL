@@ -2,10 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Bird from '../components/bird.jsx'
 
-const mapStateToProps = (state, ownState) => {
+const mapStateToProps = (state) => {
   return {
     bird: state.bird,
-    isVisible: ownState.isVisible,
+    isVisible: state.game.isPlaying || state.game.isEnded,
     gameEnded: state.game.isEnded
   }
 }

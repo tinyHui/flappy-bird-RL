@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 import Score from '../components/score.jsx'
 import { scoreUp } from '../actions'
 
-const mapStateToProps = (state, ownState) => {
+const mapStateToProps = (state) => {
   const leftPipeX = 290 - state.pipePairs[0].moveOffset;
   const birdX = state.bird.x;
 
   return {
     score: state.game.score,
     birdReachPipe: leftPipeX === birdX,
-    isVisible: ownState.isVisible
+    isVisible: state.game.isPlaying || state.game.isEnded
   }
 }
 

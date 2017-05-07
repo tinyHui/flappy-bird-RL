@@ -7,7 +7,9 @@ export default (state = gameState, action) => {
   switch (action.type) {
     case START:
       return Object.assign({}, state, {
-        isPlaying: true
+        score: 0,
+        isPlaying: true,
+        isEnded: false
       });
 
     case SCORE_UP:
@@ -17,6 +19,7 @@ export default (state = gameState, action) => {
 
     case STOP:
       return Object.assign({}, state, {
+        isPlaying: false,
         isEnded: true
       });
 

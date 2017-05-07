@@ -19,7 +19,9 @@ class App extends React.Component {
           this.props.startGame();
         }
       } else if(event.keyCode === 96) {
-        this.props.stopGame();
+        if (this.props.game.isPlaying) {
+          this.props.stopGame();
+        }
       }
     }
   }
@@ -34,9 +36,9 @@ class App extends React.Component {
     });
 
     return <div className='app'>
-        <Score isVisible={this.props.game.isPlaying}/>
+        <Score />
         <div className='scene' onMouseDown={triggerFly} onTouchStart={triggerFly}>
-          <Bird isVisible={this.props.game.isPlaying}/>
+          <Bird />
           <PipePairs />
           <div className={landClasses}></div>
         </div>
