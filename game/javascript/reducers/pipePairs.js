@@ -7,6 +7,7 @@ const heightRange = initState.world.skyRange.max,
       moveSpeed = initState.pipePair.speed;
 
 const gap = initState.pipePair.gap,
+      pipeWidth = initState.pipePair.width,
       topOffsetMax = initState.pipePair.top.yRange.max,
       topOffsetMin = initState.pipePair.top.yRange.min;
 
@@ -57,7 +58,7 @@ function getPipeInScene(pairs) {
 
 function filterInScene(pairs) {
   return pairs.filter((pair) => {
-    return pair.moveOffset < widthRange;
+    return pair.moveOffset < widthRange + pipeWidth * 2;
   });
 }
 

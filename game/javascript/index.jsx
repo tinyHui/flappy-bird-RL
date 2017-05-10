@@ -23,8 +23,10 @@ function runningGame() {
     }
     if (secureThrough(store.getState())) {
       store.dispatch(scoreUp());
+      store.dispatch(playing());
+    } else {
+      store.dispatch(playing());
     }
-    store.dispatch(playing())
   } else if (!store.getState().game.isPlaying && store.getState().game.isEnded) {
     store.dispatch(stopGame())
   }

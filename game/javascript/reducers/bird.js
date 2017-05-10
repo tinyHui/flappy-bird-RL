@@ -2,77 +2,87 @@ import initState from '../initialState'
 import { START, FLY_UP, PLAYING, STOP, SCORE_UP } from '../actions'
 
 const world = initState.world;
+let dropping = false;
+let dropStartHeight = 0;
 
 export default (state = { }, action) => {
-  const { currentHeight, targetHeight, currentRotate } = state;
+  const { currentHeight, currentRotate } = state;
+
   switch (action.type) {
     case START:
       return Object.assign({}, initState.bird, {
-        timestamp: Date.now()
+        dropStartTimestamp: Date.now(),
+        remainClimbPower: 0
       });
 
     case FLY_UP:
-      if (state.currentHeight < world.flyRange.max) {
-        state.targetHeight = getClimbTarget(state);
-      }
-
+      dropping = false;
       return Object.assign({}, state, {
-        targetRotate: state.minRotate,
-        startHeight: state.currentHeight,
-        timestamp: Date.now()
+        remainClimbPower: initState.bird.climbPower
       });
 
     case PLAYING:
-      const timeDelta = Date.now() - state.timestamp;
-
-      if (currentHeight === targetHeight) {
-        state.startHeight = currentHeight;
-        state.targetHeight = world.skyRange.min;
-        state.currentRotate = state.maxRotate;
-        state.timestamp = Date.now();
-      } else if (currentHeight < targetHeight) {
-        climbUp(state, timeDelta);
-      } else {
-        dropDown(state, timeDelta);
+      let result = {
+        remainClimbPower: state.remainClimbPower || 0,
+        currentHeight: state.currentHeight,
+        dropStartTimestamp: state.dropStartTimestamp
       }
 
-      return Object.assign({}, state);
+      if (result.remainClimbPower > 0) {
+        climb(state, result);
+      } else {
+        drop(state, result);
+      }
+
+      return Object.assign({}, state, result);
 
     case STOP:
-      dropDown(state, Date.now() - state.timestamp);
-      return Object.assign({}, state);
+      result = {
+        remainClimbPower: state.remainClimbPower || 0,
+        currentHeight: state.currentHeight,
+        dropStartTimestamp: state.dropStartTimestamp
+      }
+
+      state.currentRotate = initState.bird.headDownAngle;
+
+      if (result.remainClimbPower > 0) {
+        climb(state, result);
+      } else {
+        drop(state, result);
+      }
+      return Object.assign({}, state, result);
+
 
     case SCORE_UP:
       return Object.assign({}, state);
 
     default:
-      return Object.assign({}, initState.bird, {
-        timestamp: Date.now()
-      });
+      return Object.assign({}, initState.bird);
   }
 }
 
-function getClimbTarget(state) {
-  if (state.currentHeight > state.targetHeight) {
-    // still dropping
-    return state.currentHeight + state.climbHeight;
-  } else {
-    return state.targetHeight += state.climbHeight;
-  }
+function climb(state, result) {
+  result.remainClimbPower -= world.gravity;
+  result.currentHeight += result.remainClimbPower * state.climbHeighPerPower;
+  state.currentRotate = initState.bird.headUpAngle;
+  result.dropStartHeight = state.currentHeight;
+  dropping = false;
 }
 
-function climbUp(state, timeDelta) {
-  let ratio = timeDelta / world.climbDuration;
-  if (ratio > 1)  ratio = 1;
-  state.currentHeight = state.startHeight + (state.targetHeight - state.startHeight) * ratio;
-  state.currentRotate = state.startRotate + (state.targetRotate - state.startRotate) * ratio;
-}
-
-function dropDown(state, timeDelta) {
-  if (state.currentHeight <= world.flyRange.min) {
+function drop(state, result) {
+  if (state.currentHeight <= 0) {
     return
   }
-  const heightDelta = timeDelta / world.dropDuration * (world.skyRange.max - world.skyRange.min);
-  state.currentHeight = state.startHeight - heightDelta;
-  state.currentRotate = state.maxRotate;
+  // drop
+  if (!dropping) {
+    dropping = true;
+    result.dropStartTimestamp = Date.now();
+    result.dropStartHeight = state.currentHeight;
+  }
+  const dropTimeDelta = (Date.now() - state.dropStartTimestamp) / 1000;
+  const dropHeightDelta = state.dropStartHeight - state.currentHeight;
+  result.currentHeight -= world.gravity * Math.pow(dropTimeDelta, 2) + 2;
+  if (dropHeightDelta > 66) {
+    state.currentRotate = initState.bird.headDownAngle
+  }
 }

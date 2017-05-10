@@ -2,39 +2,64 @@ import initState from '../initialState'
 
 const skyHeight = initState.world.skyRange.max,
       skyWidth = initState.world.xRange.max,
+      birdWidth = initState.bird.width,
+      birdHeight = initState.bird.height,
       pipeWidth = initState.pipePair.width;
 
 function getState(state) {
   const { bird, pipePairs } = state;
-  // console.log(skyWidth, pipePairs[0].moveOffset, pipeWidth, skyWidth - pipePairs[0].moveOffset - pipeWidth, bird.x)
+
+  const detectRange = {
+    min: bird.x,
+    max: bird.x + birdWidth
+  }
+
+  let pipePair = getAffectPipePair(pipePairs, bird.x);
+
   return {
     bird: {
       x: bird.x,
       y: bird.currentHeight
     },
     pipe: {
-      x: skyWidth - pipePairs[0].moveOffset - pipeWidth,
-      topY: pipePairs[0].top,
-      bottomY: pipePairs[0].bottom
+      x: getPipePairLeft(pipePair),
+      topY: skyHeight - pipePair.top,
+      bottomY: pipePair.bottom
     },
-    detectRange: {
-      min: bird.x - pipeWidth,
-      max: bird.x
-    },
-    safeRange: {
-      min: pipePairs[0].bottom,
-      max: skyHeight - pipePairs[0].top
+    detectRange: detectRange
+  }
+}
+
+function getPipePairLeft(pipePair) {
+  return skyWidth - pipePair.moveOffset;
+}
+
+function getAffectPipePair(pipePairs, birdX) {
+  for (let p of pipePairs) {
+    if (getPipePairLeft(p) + birdWidth >= birdX) {
+      return p;
     }
   }
 }
 
+function sameX(birdX, pipeX) {
+  return birdX < pipeX + pipeWidth && birdX + birdWidth > pipeX;
+}
+
+function inSafeRange(birdY, pipeTopY, pipeBottomY) {
+  // allow extra room for better visial effect
+  return birdY >= pipeBottomY - 12 && birdY + birdHeight <= pipeTopY + 12;
+}
+
 export function isClash(state) {
-  const { bird, pipe, detectRange, safeRange } = getState(state);
+  const { bird, pipe, detectRange } = getState(state);
+
   if (bird.y <= 0) {
     return true;
   }
-  if (detectRange.max > pipe.x && pipe.x > detectRange.min) {
-    if (bird.y < safeRange.min || bird.y > safeRange.max) {
+
+  if (sameX(bird.x, pipe.x)) {
+    if (!inSafeRange(bird.y, pipe.topY, pipe.bottomY)) {
       return true;
     }
   }
@@ -43,11 +68,11 @@ export function isClash(state) {
 }
 
 export function secureThrough(state) {
-  const { bird, pipe, safeRange } = getState(state);
+  const { bird, pipe } = getState(state);
   if (bird.x === pipe.x) {
-      if (bird.y > safeRange.min && bird.y < safeRange.max) {
-        return true;
-      }
+    if (inSafeRange(bird.y, pipe.topY, pipe.bottomY)) {
+      return true;
+    }
   }
   return false;
 }

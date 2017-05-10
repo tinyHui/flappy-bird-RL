@@ -51,10 +51,10 @@ body {
       	bottom: 112px;
       	width: 34px;
       	height: 24px;
-      	margin-left:  -12px;
       	background: url(./elements.png) no-repeat -446px -248px;
       	transition: transform 0.1s ease;
       	will-change:  transform;
+				z-index: 5;
 
         &.flying {
         	animation: fly .4s steps(1) reverse infinite;
@@ -104,6 +104,7 @@ body {
 	    	width: 288px;
 	    	height: 112px;
 	    	background: url(./elements.png) no-repeat -292px 0;
+				z-index: 10;
 
 				&.sliding {
 					animation: sliding 0.2s linear infinite;

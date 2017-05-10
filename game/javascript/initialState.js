@@ -7,29 +7,28 @@ export default {
   bird: {
     isFlying: true,
     x: 45,
-    startHeight: 188,
-    startRotate: 0,
+    width: 34,
+    height: 24,
     currentHeight: 188,
     currentRotate: 0,
-    targetHeight: 0,
-    targetRotate: 40,
-    maxRotate: 90,
-    minRotate: -40,
-    climbHeight: 80,
-    timestamp: 0
+    dropStartTimestamp: 0,
+    climbPower: 15,
+    climbHeighPerPower: 2.8,
+    headUpAngle: -30,
+    headDownAngle: 90
   },
   pipePair: {
     timestamp: 0,
     moveOffset: 0,
     speed: 1,
     interval: 2800,
-    gap: 68,
+    gap: 86,
     width: 52,
     top: {
       offset: 0,
       yRange: {
-        min: 60,
-        max: 242
+        min: 90,
+        max: 270
       }
     },
     bottom: {
@@ -39,17 +38,16 @@ export default {
   world: {
     skyRange: {
       min: 0,
-      max: 368
+      max: 400
     },
     xRange: {
       min: 0,
-      max: 340
+      max: 288
     },
     flyRange: {
       min: 0,
       max: 428
     },
-    dropDuration: 1400,
-    climbDuration: 140
+    gravity: 4
   }
 }

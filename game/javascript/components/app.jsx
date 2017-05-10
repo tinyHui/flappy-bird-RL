@@ -13,16 +13,20 @@ class App extends React.Component {
   componentDidMount() {
     document.onkeypress = (event) => {
       if (event.keyCode === 32) {
-        this.props.triggerFly();
-      } else if (event.keyCode === 13) {
-        if (!this.props.game.isPlaying) {
-          this.props.startGame();
-        }
+        this.continueGame();
       } else if(event.keyCode === 96) {
         if (this.props.game.isPlaying) {
           this.props.stopGame();
         }
       }
+    }
+  }
+
+  continueGame() {
+    if (this.props.game.isPlaying) {
+      this.props.triggerFly();
+    } else {
+      this.props.startGame();
     }
   }
 
@@ -37,7 +41,13 @@ class App extends React.Component {
 
     return <div className='app'>
         <Score />
-        <div className='scene' onMouseDown={triggerFly} onTouchStart={triggerFly}>
+        <div className='scene' onMouseDown={() => {
+          if (this.props.game.isPlaying) {
+            this.props.triggerFly();
+          }}} onTouchStart={() => {
+            if (this.props.game.isPlaying) {
+              this.props.triggerFly();
+            }}}>
           <Bird />
           <PipePairs />
           <div className={landClasses}></div>
