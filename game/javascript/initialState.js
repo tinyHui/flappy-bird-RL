@@ -12,8 +12,8 @@ export default {
     currentHeight: 188,
     currentRotate: 0,
     dropStartTimestamp: 0,
-    climbPower: 15,
-    climbHeighPerPower: 2.8,
+    climbPower: 21,
+    climbHeighPerPower: 0.8,
     headUpAngle: -30,
     headDownAngle: 90
   },

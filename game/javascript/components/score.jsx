@@ -1,10 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import {Text, Image} from 'react-konva';
+import { toImageDom } from '../utils'
 
 class Score extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      image: toImageDom('static/bird.png')
+    }
   }
 
   render() {
@@ -15,9 +20,7 @@ class Score extends React.Component {
       'score': true
     });
 
-    return <div className={classes}>
-      { score }
-    </div>
+    return <Text text={score} fontSize={35} fontFamily={'Calibri'} fill={'#fff'} padding={20} />
   }
 }
 

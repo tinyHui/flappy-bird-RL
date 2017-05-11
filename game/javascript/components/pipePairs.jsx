@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import {Group} from 'react-konva';
+
 import PipePair from './pipePair.jsx'
 
 class PipePairs extends React.Component {
@@ -12,11 +14,11 @@ class PipePairs extends React.Component {
   render() {
     const { pipePairs } = this.props;
 
-    return <div>
+    return <Group>
       {
         pipePairs.map((pair) => <PipePair key={pair.timestamp} {...pair}/>)
       }
-    </div>
+    </Group>
   }
 }
 

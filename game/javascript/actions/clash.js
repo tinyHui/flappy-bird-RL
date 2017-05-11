@@ -47,8 +47,7 @@ function sameX(birdX, pipeX) {
 }
 
 function inSafeRange(birdY, pipeTopY, pipeBottomY) {
-  // allow extra room for better visial effect
-  return birdY >= pipeBottomY - 12 && birdY + birdHeight <= pipeTopY + 12;
+  return birdY >= pipeBottomY && birdY + birdHeight <= pipeTopY;
 }
 
 export function isClash(state) {
