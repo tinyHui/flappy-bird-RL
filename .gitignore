@@ -90,4 +90,4 @@ ENV/
 
 # JavaScript
 game/node_modules
-game/static
+static/

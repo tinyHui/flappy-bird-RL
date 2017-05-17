@@ -4,10 +4,12 @@ const sass = require("gulp-sass");
 const minifycss = require('gulp-minify-css');
 const del = require('del');
 
+const destPath = "../static/";
+
 gulp.task('default', ["clean", "scss"]);
 
 gulp.task('clean', () => {
-    return del('static/*.css');
+    return del(destPath + '*.css');
   }
 );
 
@@ -19,9 +21,9 @@ gulp.task('scss', () => {
             cascade: false
         }))
         .pipe(minifycss())
-        .pipe(gulp.dest('static'));
+        .pipe(gulp.dest(destPath));
     gulp.src('res/*.png')
-        .pipe(gulp.dest('static'));
+        .pipe(gulp.dest(destPath));
   }
 );
 
