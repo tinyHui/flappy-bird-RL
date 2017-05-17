@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
 import {Stage, Layer, Group, Image} from 'react-konva';
 
 import Bird from '../containers/bird'
@@ -41,11 +40,6 @@ class App extends React.Component {
     const { triggerFly, scoreUp } = this.props;
     const { width, height, landHeight } = this.props.game.world;
     const { isPlaying, score, isEnded } = this.props.game.game;
-
-    let landClasses = classnames({
-      land: true,
-      sliding: isPlaying && !isEnded,
-    });
 
     return <Stage width={width} height={height} onMouseDown={() => {
           if (this.props.game.isPlaying) {
