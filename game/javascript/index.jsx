@@ -4,19 +4,23 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import App from './containers/app'
 import game from './reducers'
-import { playing, scoreUp, stopGame } from './actions'
+import { flyUp, playing, startGame, scoreUp, stopGame } from './actions'
 import { isClash, secureThrough }  from './actions/clash'
 
 const store = createStore(game);
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <div>
+    <Provider store={store}>
+      <App />
+    </Provider>
+    <button onClick={start}>Start Game</button>
+    <button onClick={climbUp}>Climb Up</button>
+  </div>,
   document.getElementById('game')
 );
 
-function runningGame() {
+function nextFrame() {
   if (store.getState().game.isPlaying && !store.getState().game.isEnded) {
     if (isClash(store.getState())) {
       store.dispatch(stopGame());
@@ -28,9 +32,21 @@ function runningGame() {
       store.dispatch(playing());
     }
   } else if (!store.getState().game.isPlaying && store.getState().game.isEnded) {
-    store.dispatch(stopGame())
+    store.dispatch(stopGame());
   }
-  requestAnimationFrame(runningGame);
+  requestAnimationFrame(nextFrame);
 }
 
-runningGame();
+function climbUp() {
+  if (store.getState().game.isPlaying) {
+    store.dispatch(flyUp());
+  }
+}
+
+function start() {
+  if (!store.getState().game.isPlaying) {
+    store.dispatch(startGame());
+  }
+}
+
+nextFrame();
