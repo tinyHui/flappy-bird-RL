@@ -1,0 +1,22 @@
+{
+  "name": "smart-flappybird",
+  "version": "1.0.0",
+  "description": "Flappybird javascript playground and play scene generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tinyHui/flappy-bird-RL.git"
+  },
+  "author": "Jason Chen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tinyHui/flappy-bird-RL/issues"
+  },
+  "homepage": "https://github.com/tinyHui/flappy-bird-RL#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}

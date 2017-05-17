@@ -89,5 +89,6 @@ ENV/
 .ropeproject
 
 # JavaScript
+node_modules/
 game/node_modules
 static/

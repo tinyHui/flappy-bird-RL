@@ -1,7 +1,7 @@
 {
-  "name": "smart-flappybird",
+  "name": "flappybird-react",
   "version": "1.0.0",
-  "description": "Play flappybird with reinforcement learning",
+  "description": "flappy bird javascript core",
   "main": "index.js",
   "scripts": {
     "compile": "webpack && ./node_modules/gulp/bin/gulp.js scss",
