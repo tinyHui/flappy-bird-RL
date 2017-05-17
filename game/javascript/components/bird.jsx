@@ -14,6 +14,7 @@ class Bird extends React.Component {
 
   render() {
     const { bird, isVisible, gameEnded } = this.props;
+    const landHeight = this.props.landHeight;
 
     let style = {
       transform: `translate(0, ${-bird.currentHeight}px) rotate(${bird.currentRotate || 0}deg)`,
@@ -25,9 +26,7 @@ class Bird extends React.Component {
       'flying': bird.isFlying && !gameEnded
     });
 
-    // return <div className={classes} style={style}></div>
-
-    return <Image image={this.state.image} x={45} y={400 - bird.currentHeight - 24}/>
+    return <Image image={this.state.image} x={bird.x} y={landHeight - bird.currentHeight - bird.height} rotation={bird.currentRotate}/>
   }
 }
 
@@ -36,7 +35,8 @@ Bird.propTypes = {
     currentHeight: PropTypes.number.isRequired,
     currentRotate: PropTypes.number.isRequired,
     isFlying: PropTypes.bool.isRequired
-  })
+  }),
+  landHeight: PropTypes.number.isRequired
 }
 
 export default Bird;

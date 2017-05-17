@@ -38,15 +38,16 @@ class App extends React.Component {
   }
 
   render() {
-    const { game, triggerFly, scoreUp } = this.props;
-    const { isPlaying, score, isEnded } = this.props.game;
+    const { triggerFly, scoreUp } = this.props;
+    const { width, height, landHeight } = this.props.game.world;
+    const { isPlaying, score, isEnded } = this.props.game.game;
 
     let landClasses = classnames({
       land: true,
       sliding: isPlaying && !isEnded,
     });
 
-    return <Stage width={288} height={512} onMouseDown={() => {
+    return <Stage width={width} height={height} onMouseDown={() => {
           if (this.props.game.isPlaying) {
             this.props.triggerFly();
           }}} onTouchStart={() => {
@@ -57,7 +58,7 @@ class App extends React.Component {
         <Group>
           <Image image={this.state.skyImage} />
           <PipePairs />
-          <Image image={this.state.landImage} Y={400} />
+          <Image image={this.state.landImage} Y={landHeight} />
           <Bird />
           <Score />
         </Group>
@@ -68,8 +69,15 @@ class App extends React.Component {
 
 App.propTypes = {
   game: PropTypes.shape({
+    world: PropTypes.shape({
+      width: PropTypes.number.isRequired,
+      height: PropTypes.number.isRequired,
+      landHeight: PropTypes.number.isRequired
+    }).isRequired,
+    game : PropTypes.shape({
       isPlaying: PropTypes.bool.isRequired,
       score: PropTypes.number.isRequired
+    })
   }).isRequired,
   triggerFly: PropTypes.func.isRequired
 };

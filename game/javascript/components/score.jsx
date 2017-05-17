@@ -14,13 +14,12 @@ class Score extends React.Component {
 
   render() {
     const { score, isVisible, scoreUp } = this.props;
-
     let classes = classnames({
       'hide': !isVisible,
       'score': true
     });
 
-    return <Text text={score} fontSize={35} fontFamily={'Calibri'} fill={'#fff'} padding={20} />
+    return <Text text={(score || 0).toString()} fontSize={35} fontFamily={'Calibri'} fill={'#fff'} padding={20} />
   }
 }
 

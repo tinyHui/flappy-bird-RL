@@ -2,6 +2,10 @@ import initState from '../initialState'
 import { START, FLY_UP, PLAYING, STOP, SCORE_UP } from '../actions'
 
 const world = initState.world;
+const dropHeadDownRange = initState.bird.dropHeadDownRange;
+const headUpAngle = initState.bird.headUpAngle;
+const headDownAngle = initState.bird.headDownAngle;
+
 let dropping = false;
 let dropStartHeight = 0;
 
@@ -43,7 +47,7 @@ export default (state = { }, action) => {
         dropStartTimestamp: state.dropStartTimestamp
       }
 
-      state.currentRotate = initState.bird.headDownAngle;
+      // state.currentRotate = headDownAngle;
 
       if (result.remainClimbPower > 0) {
         climb(state, result);
@@ -64,7 +68,7 @@ export default (state = { }, action) => {
 function climb(state, result) {
   result.remainClimbPower -= world.gravity;
   result.currentHeight += result.remainClimbPower * state.climbHeighPerPower;
-  state.currentRotate = initState.bird.headUpAngle;
+  // state.currentRotate = headUpAngle;
   result.dropStartHeight = state.currentHeight;
   dropping = false;
 }
@@ -81,8 +85,7 @@ function drop(state, result) {
   }
   const dropTimeDelta = (Date.now() - state.dropStartTimestamp) / 1000;
   const dropHeightDelta = state.dropStartHeight - state.currentHeight;
+  // const ratio = dropHeightDelta / dropHeadDownRange;
   result.currentHeight -= world.gravity * Math.pow(dropTimeDelta, 2) + 2;
-  if (dropHeightDelta > 66) {
-    state.currentRotate = initState.bird.headDownAngle
-  }
+  // result.currentRotate = headDownAngle * ratio;
 }

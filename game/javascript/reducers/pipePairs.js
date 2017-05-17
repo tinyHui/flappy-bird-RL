@@ -1,8 +1,8 @@
 import initState from '../initialState'
 import { START, PLAYING, FLY_UP, SCORE_UP, STOP } from '../actions'
 
-const heightRange = initState.world.skyRange.max,
-      widthRange = initState.world.xRange.max,
+const heightRange = initState.world.landHeight,
+      widthRange = initState.world.canvas.width,
       generateInterval = initState.pipePair.interval,
       moveSpeed = initState.pipePair.speed;
 

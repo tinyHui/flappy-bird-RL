@@ -20,10 +20,6 @@ export default function Piping({ moveOffset, top, bottom }) {
     transform: `translate(0, -${bottom}px)`
   };
 
-  // return <div className='pipe' style={pipePairStyle}>
-  //   <div className='pipe-upper' style={upperPipeStyle}></div>
-  //   <div className='pipe-below' style={belowPipeStyle}></div>
-  // </div>
   return <Group x={288 - moveOffset}>
     <Image image={upperPipeImage} y={top - 270}/>
     <Image image={bottomPipeImage} y={400 - bottom}/>

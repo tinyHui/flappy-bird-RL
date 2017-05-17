@@ -15,7 +15,8 @@ export default {
     climbPower: 21,
     climbHeighPerPower: 0.8,
     headUpAngle: -30,
-    headDownAngle: 90
+    headDownAngle: 90,
+    dropHeadDownRange: 60
   },
   pipePair: {
     timestamp: 0,
@@ -36,14 +37,11 @@ export default {
     }
   },
   world: {
-    skyRange: {
-      min: 0,
-      max: 400
+    canvas: {
+      width: 288,
+      height: 512
     },
-    xRange: {
-      min: 0,
-      max: 288
-    },
+    landHeight: 400,
     flyRange: {
       min: 0,
       max: 428

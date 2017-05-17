@@ -1,7 +1,7 @@
 import initState from '../initialState'
 
-const skyHeight = initState.world.skyRange.max,
-      skyWidth = initState.world.xRange.max,
+const landHeight = initState.world.landHeight,
+      skyWidth = initState.world.canvas.width,
       birdWidth = initState.bird.width,
       birdHeight = initState.bird.height,
       pipeWidth = initState.pipePair.width;
@@ -23,7 +23,7 @@ function getState(state) {
     },
     pipe: {
       x: getPipePairLeft(pipePair),
-      topY: skyHeight - pipePair.top,
+      topY: landHeight - pipePair.top,
       bottomY: pipePair.bottom
     },
     detectRange: detectRange

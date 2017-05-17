@@ -4,9 +4,7 @@ import App from '../components/app.jsx'
 import { flyUp, startGame, stopGame } from '../actions'
 
 const mapStateToProps = (state) => {
-  return {
-    game: state.game
-  }
+  return state;
 }
 
 const mapDispatchToProps = (dispatch) => {

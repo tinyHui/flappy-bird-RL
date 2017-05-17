@@ -1,13 +1,20 @@
 import initState from '../initialState'
 import { START, SCORE_UP, STOP } from '../actions'
 
-let gameState = initState.game;
+let gameState = {
+  game: initState.game,
+  world: {
+    width: initState.world.canvas.width,
+    height: initState.world.canvas.height,
+    landHeight: initState.world.landHeight
+  }
+};
 
 export default (state = gameState, action) => {
   switch (action.type) {
     case START:
       return Object.assign({}, state, {
-        score: 0,
+        score: initState.game.score,
         isPlaying: true,
         isEnded: false
       });
